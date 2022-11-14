@@ -19,6 +19,8 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       discovery:
         locator:
           enabled: true
@@ -48,4 +50,19 @@ spring:
             - Path=/accounts/**
           filters:
             - RemoveRequestHeader=Cookie
-        
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8180/auth/realms/DHM/protocol/openid-connect/auth
+            userinfo-uri: http://localhost:8180/auth/realms/DHM/protocol/openid-connect/userinfo
+            user-name-atribute: preferred_username
+            token-uri: http://localhost:8180/auth/realms/DHM/protocol/openid-connect/token
+        registration:
+          dhm-client:
+            provider: keycloak
+            client-id: dhm-client
+            client-secret: dca0cc8c-eb29-45a8-b8d5-f7fba46088e2
+            authorization-grant-type: authorization_code
+            redirect-uri: "{base_url}/login/oauth2/code/dhm-client"
