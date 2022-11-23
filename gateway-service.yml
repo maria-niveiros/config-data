@@ -19,8 +19,8 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     gateway:
-      default-filters:
-        - TokenRelay
+   #   default-filters:
+  #      - TokenRelay
       discovery:
         locator:
           enabled: true
