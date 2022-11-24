@@ -1,6 +1,5 @@
 server:
-  port: 8090
-
+  port: 8080
 eureka:
   client:
     fetch-registry: true
@@ -9,8 +8,6 @@ eureka:
       default-zone: http://localhost:8761/eureka
   instance:
     hostname: localhost
-
-
 spring:
   application:
     name: gateway-service
@@ -19,34 +16,34 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     gateway:
-   #   default-filters:
-  #      - TokenRelay
+#       default-filters:
+#         - TokenRelay
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
       routes:
         - id: user-service
-          uri: lb://user-service
+          uri: lb://user-service/
           predicates:
             - Path=/user/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: account-service
-          uri: lb://account-service
+          uri: lb://account-service/
           predicates:
             - Path=/account/**
           filters:
             - RemoveRequestHeader=Cookie
         - id: card-service
-          uri: lb://card-service
+          uri: lb://card-service/
           predicates:
-            - Path=/card/**
+            - Path=/cards/**
           filters:
             - RemoveRequestHeader=Cookie
-        - id: account-service
-          uri: lb://account-service
+        - id: transaction-service
+          uri: lb://transaction-service/
           predicates:
-            - Path=/accounts/**
+            - Path=/transaction/**
           filters:
             - RemoveRequestHeader=Cookie
