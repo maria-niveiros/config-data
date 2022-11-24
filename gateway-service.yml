@@ -44,6 +44,6 @@ spring:
         - id: transaction-service
           uri: lb://transaction-service/
           predicates:
-            - Path=/transactions/**
+            - Path=/transaction/**
           filters:
             - RemoveRequestHeader=Cookie
